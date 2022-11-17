@@ -170,10 +170,10 @@ gmsh.finalize()
 
 '''
 NOTE
-Ways to impose constant boundary condition (as an example take bc_1 as constant value of 1. on boundary 2):
+Ways to impose constant boundary condition (as an example take bc_1 as constant value of 2. on boundary 1):
 
-1. bc_1 = dirichletbc(PETSc.ScalarType(1.),dofs_bc_2,V)
-2. bc_1 = dirichletbc(dolfinx.fem.Constant(domain,PETSc.ScalarType(1.)),dofs_bc_2,V)
+1. bc_1 = dirichletbc(PETSc.ScalarType(2.),dofs_bc_1,V)
+2. bc_1 = dirichletbc(dolfinx.fem.Constant(domain,PETSc.ScalarType(2.)),dofs_bc_1,V)
 
 Notice that third argument FunctionSpace is added.
 '''
