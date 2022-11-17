@@ -100,11 +100,14 @@ def u_bc_4(x):
     return values
 
 x = ufl.SpatialCoordinate(domain) # TODO find alternative to using SpatialCoordinate
-u_ufl = 1 + x[0]**2 + 2*x[1]**2
+A = PETSc.ScalarType(1.)
+B = PETSc.ScalarType(2.)
+C = PETSc.ScalarType(1.)
+u_ufl = C + A * x[0]**2 + B * x[1]**2
+
 ''' NOTE
-1. How to define coefficients explicitly i.e. 1 + x**2 + 2*y**2 as C + Ax**2 + B*y**2 as A=1, B=2 and C=1 like older FEniCS 
-Define A = dolfinx.fem.Constant(domain,PETSc.ScalarType(1.)) and B = dolfinx.fem.Constant(domain,PETSc.ScalarType(2.)) and C = dolfinx.fem.Constant(domain,PETSc.ScalarType(1.)). Defining as fem.Constant is advantageous for repeated compilation of expression. The coefficients are like pointers which are evaluated from a memory location instead of read as fixed numbers.  
-2. why ufl.exp and not dolfinx.fem.Expression. ufl.Expression is symbolic but actual values are not computeed and stored till the time of evaluation.'''
+Defining as constant PETSc.ScalarType coefficients is advantageous for repeated compilation of expression. The coefficients are like pointers which are evaluated from a memory location instead of read as fixed numbers.  
+'''
 
 class exact_solution():
     '''
